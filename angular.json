@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "whats-new": {
+      "root": "projects/whats-new",
+      "sourceRoot": "projects/whats-new/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/whats-new/tsconfig.lib.json",
+            "project": "projects/whats-new/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/whats-new/src/test.ts",
+            "tsConfig": "projects/whats-new/tsconfig.spec.json",
+            "karmaConfig": "projects/whats-new/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/whats-new/tsconfig.lib.json",
+              "projects/whats-new/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "whats-new-demo": {
+      "root": "projects/whats-new-demo/",
+      "sourceRoot": "projects/whats-new-demo/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/whats-new-demo",
+            "index": "projects/whats-new-demo/src/index.html",
+            "main": "projects/whats-new-demo/src/main.ts",
+            "polyfills": "projects/whats-new-demo/src/polyfills.ts",
+            "tsConfig": "projects/whats-new-demo/tsconfig.app.json",
+            "assets": [
+              "projects/whats-new-demo/src/favicon.ico",
+              "projects/whats-new-demo/src/assets"
+            ],
+            "styles": [
+              "projects/whats-new-demo/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/whats-new-demo/src/environments/environment.ts",
+                  "with": "projects/whats-new-demo/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "whats-new-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "whats-new-demo:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "whats-new-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/whats-new-demo/src/test.ts",
+            "polyfills": "projects/whats-new-demo/src/polyfills.ts",
+            "tsConfig": "projects/whats-new-demo/tsconfig.spec.json",
+            "karmaConfig": "projects/whats-new-demo/karma.conf.js",
+            "styles": [
+              "projects/whats-new-demo/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/whats-new-demo/src/favicon.ico",
+              "projects/whats-new-demo/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/whats-new-demo/tsconfig.app.json",
+              "projects/whats-new-demo/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "whats-new-demo-e2e": {
+      "root": "projects/whats-new-demo-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/whats-new-demo-e2e/protractor.conf.js",
+            "devServerTarget": "whats-new-demo:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "whats-new-demo:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/whats-new-demo-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "whats-new"
+}
